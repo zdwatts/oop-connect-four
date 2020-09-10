@@ -18,6 +18,31 @@ function updateUI() {
         gameName.innerHTML = game.getName();
     }
 
+    console.log('this happens before the loop');
+
+    for (let rowIndex = 0; rowIndex <= 5; rowIndex++){
+        for (let colIndex = 0; colIndex <= 6; colIndex++){
+            const square = document.querySelector(`#square-${rowIndex}-${colIndex}`);
+            square.innerHTML = "";
+
+
+
+            let playerNumber = game.getTokenAt(rowIndex, colIndex);
+            if (playerNumber === 1) {
+                const token = document.createElement("div");
+                token.classList.add("token")
+                token.classList.add("red")
+                square.appendChild(token);
+
+            } else if (playerNumber === 2) {
+                const token = document.createElement("div");
+                token.classList.add("token")
+                token.classList.add("black")
+                square.appendChild(token);
+            }
+        }
+    }
+
     if (game.currentPlayer === 1) {
         clickTargets.classList.remove('black')
         clickTargets.classList.add('red')
@@ -37,7 +62,6 @@ function updateUI() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-
     playerOne.addEventListener("keyup", () => {
         playerTwo.addEventListener("keyup", () => {
             if (playerOne.value && playerTwo.value) {
