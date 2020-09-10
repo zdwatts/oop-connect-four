@@ -26,9 +26,9 @@ function updateUI() {
         clickTargets.classList.add('black')
     }
 
-    for (let i = 0; i < 7; i++) {
-        let column = document.getElementById(`column-${i}`);
-        if (game.isColumnFull()) {
+    for (let colIndex = 0; colIndex < 7; colIndex++) {
+        let column = document.getElementById(`column-${colIndex}`);
+        if (game.isColumnFull(colIndex)) {
             column.classList.add("full");
         } else {
             column.classList.remove("full");
@@ -57,11 +57,11 @@ window.addEventListener("DOMContentLoaded", () => {
     })
 
     clickTargets.addEventListener('click', e => {
-        let row = e.target.id;
-        let rowNum = row.slice(7, 8);
-        game.playInColumn()
-        Column.getTokenAt(rowNum);
-        updateUI()
+        let targetId = e.target.id;
+        if (!targetId.startsWith('column-')) return;
+        const columnIndex = Number.parseInt(targetId[targetId.length - 1]);
+        game.playInColumn(columnIndex);
+        updateUI();
     })
 
 })

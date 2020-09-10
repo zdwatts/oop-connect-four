@@ -7,8 +7,9 @@ export class Column {
 
     add(playerNum) {
         for (let i = 5; i >= 0; i--) {
-            if (i === null) {
-                i = playerNum
+            if (this.tokens[i] === null) {
+                this.tokens[i] = playerNum;
+                break;
             }
         }
     }
@@ -18,11 +19,6 @@ export class Column {
     }
 
     isFull() {
-        if (!this.tokens.includes(null)) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.tokens[0] !== null;
     }
 }
- 

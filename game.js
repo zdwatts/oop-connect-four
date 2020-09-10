@@ -20,8 +20,12 @@ export class Game {
         return `${this.playerOne} vs. ${this.playerTwo}`
     }
 
-    playInColumn() {
-        this.columns.add(this.currentPlayer);
+    getTokenAt(rowIndex, colIndex) {
+        return this.tokens[colIndex].getTokenAt[rowIndex];
+    }
+
+    playInColumn(colIndex) {
+        this.columns[colIndex].add(this.currentPlayer);
 
         if (this.currentPlayer === 1) {
             this.currentPlayer = 2;
