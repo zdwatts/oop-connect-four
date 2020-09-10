@@ -17,13 +17,22 @@ function updateUI() {
         boardHolder.classList.remove("is-invisible");
         gameName.innerHTML = game.getName();
     }
-    console.log(game.currentPlayer)
+
     if (game.currentPlayer === 1) {
         clickTargets.classList.remove('black')
         clickTargets.classList.add('red')
     } else if (game.currentPlayer === 2) {
         clickTargets.classList.remove('red')
         clickTargets.classList.add('black')
+    }
+
+    for (let i = 0; i < 7; i++) {
+        let column = document.getElementById(`column-${i}`);
+        if (game.isColumnFull()) {
+            column.classList.add("full");
+        } else {
+            column.classList.remove("full");
+        }
     }
 }
 
@@ -47,8 +56,11 @@ window.addEventListener("DOMContentLoaded", () => {
         updateUI();
     })
 
-    clickTargets.addEventListener('click', () => {
+    clickTargets.addEventListener('click', e => {
+        let row = e.target.id;
+        let rowNum = row.slice(7, 8);
         game.playInColumn()
+        Column.getTokenAt(rowNum);
         updateUI()
     })
 
