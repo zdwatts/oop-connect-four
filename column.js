@@ -1,20 +1,19 @@
+import { Game } from "./game.js"
+
 export class Column {
-    constructor(tokens) {
-        this.tokens = [];
+    constructor() {
+        this.tokens = [null, null, null, null, null, null];
     }
 
-    add() {
-        for (let j = 0; j < 7; j++) {
-            for (let i = 5; i >= 0; i--) {
-                let square = `square-${i}-${j}`;
-                if (square.innerHTML === "") {
-                    console.log(square)
-                }
+    add(currentPlayer) {
+        for (let i = 5; i >= 0; i--) {
+            if (i === null) {
+                i = currentPlayer
             }
         }
     }
 
-    getTokenAt() {
-
+    getTokenAt(rowNum) {
+        return this.tokens[rowNum];
     }
 }
