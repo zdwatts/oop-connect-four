@@ -1,13 +1,19 @@
-class Game {
-
-}
+import { Game } from './game.js';
 
 let game = undefined;
+let boardHolder = document.getElementById("board-holder");
+let gameName = document.getElementById("game-name");
+
+function updateUI() {
+    if (game === undefined) {
+        boardHolder.classList.add("is-invisible");
+    } else {
+        boardHolder.classList.remove("is-invisible");
+        gameName.innerHTML = game.getName();
+    }
+}
 
 window.addEventListener("DOMContentLoaded", () => {
-    // let form = document.getElementById('form-holder')
-    // form.addEventListener("click", event => {
-    // })
     let playerOne = document.getElementById('player-1-name')
     let playerTwo = document.getElementById('player-2-name')
     let newGame = document.getElementById('new-game')
@@ -15,15 +21,18 @@ window.addEventListener("DOMContentLoaded", () => {
         playerTwo.addEventListener("keyup", () => {
             if (playerOne.value && playerTwo.value) {
                 newGame.disabled = false
+            } else {
+                newGame.disabled = true;
             }
         })
     })
-    // document.getElementById("player-2-name")
-    //         let newGame = document.getElementById('new-game')
-    //         let playerOne = document.getElementById('player-1-name').value
-    //         let playerTwo = document.getElementById('player-2-name').value
-    //         if (playerOne && playerTwo) {
-    //             newGame.disabled = false
-    //         }
-    //     })
+
+    newGame.addEventListener("click", () => {
+        game = new Game(playerOne.value, playerTwo.value)
+        playerOne.value = "";
+        playerTwo.value = "";
+        newGame.disabled = true;
+        updateUI();
+    })
+
 })
