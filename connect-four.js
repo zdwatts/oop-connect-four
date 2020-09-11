@@ -18,7 +18,7 @@ function updateUI() {
         gameName.innerHTML = game.getName();
     }
 
-    console.log('this happens before the loop');
+    console.log(game.winnerNumber);
 
     for (let rowIndex = 0; rowIndex <= 5; rowIndex++){
         for (let colIndex = 0; colIndex <= 6; colIndex++){
@@ -28,7 +28,9 @@ function updateUI() {
 
 
             let playerNumber = game.getTokenAt(rowIndex, colIndex);
+            
             if (playerNumber === 1) {
+
                 const token = document.createElement("div");
                 token.classList.add("token")
                 token.classList.add("red")
