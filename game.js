@@ -1,4 +1,6 @@
 import { Column } from './column.js'
+import { ColumnWinInspector } from './column-win.js'
+
 
 export class Game {
     constructor(playerOne, playerTwo, currentPlayer, winnerNumber) {
@@ -30,20 +32,28 @@ export class Game {
 
 
     checkforTie() {
-       let newColumns = [];
-       this.columns.every(function (column) {
-           newColumns.push(column.isFull());
-           console.log(column.isFull())
-       })
-        //console.log(newColumns);
-        if (!newColumns.includes(false)) {
-            return this.winnerNumber = 3;
-        } else {
-            return;
+        if (this.columns.every(column => column.isFull())) {
+            this.winnerNumber = 3;
         }
-    };
+    }
 
-
+    checkForColumnWin() {
+        if (this.winnerNumber !== 0) {
+            return
+        }
+        for (let i = 0; i < this.columns.length; i++) {
+            let column = this.columns[i];
+            let inspectColumn = new ColumnWinInspector(column);
+            if (inspect(inspectColumn) === 1) {
+                this.winnerNumber = 1
+                break;
+            } else if (inspect(inspectColumn) === 2) {
+                this.winnerNumber = 2
+                break;
+            }
+            console.log(inspect(inspectColumn))
+        }
+    }
 
 
     playInColumn(colIndex) {
