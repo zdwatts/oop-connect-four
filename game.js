@@ -22,6 +22,10 @@ export class Game {
     getName() {
         if (this.winnerNumber === 3) {
             return `${this.playerOne} ties with ${this.playerTwo}`
+        } else if (this.winnerNumber === 1) {
+            return `${this.playerOne} wins!`
+        } else if (this.winnerNumber === 2) {
+            return `${this.playerTwo} wins!`
         }
         return `${this.playerOne} vs. ${this.playerTwo}`
     }
@@ -44,34 +48,41 @@ export class Game {
         for (let i = 0; i < this.columns.length; i++) {
             let column = this.columns[i];
             let inspectColumn = new ColumnWinInspector(column);
-            if (inspect(inspectColumn) === 1) {
+            console.log(inspectColumn);
+            if (inspectColumn.inspect() === 1) {
                 this.winnerNumber = 1
                 break;
-            } else if (inspect(inspectColumn) === 2) {
+            } else if (inspectColumn.inspect() === 2) {
                 this.winnerNumber = 2
                 break;
             }
-            console.log(inspect(inspectColumn))
+            console.log(inspectColumn.inspect())
+
+
         }
     }
 
 
     playInColumn(colIndex) {
-        this.columns[colIndex].add(this.currentPlayer);
 
-
-
-        if (this.currentPlayer === 1) {
-            this.currentPlayer = 2;
-        } else {
+        if (this.currentPlayer === 2) {
             this.currentPlayer = 1;
+        } else {
+            this.currentPlayer = 2;
         };
 
+        console.log(this.columns[colIndex]);
+
+        this.columns[colIndex].add(this.currentPlayer);
         this.checkforTie()
+        this.checkForColumnWin(this.columns[colIndex]);
 
     }
 
     isColumnFull(colIndex) {
+        if (this.winnerNumber === 1 || this.winnerNumber === 2) {
+            return true;
+        }
         return this.columns[colIndex].isFull();
     }
 }

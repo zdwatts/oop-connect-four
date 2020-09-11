@@ -4,12 +4,19 @@ export class ColumnWinInspector {
     }
 
     inspect() {
-        for (let i = 0; i < 6; i += 7) {
-            if (
-                this.Column[i] === this.Column[i + 1] &&
-                this.Column[i] === this.Column[i + 2] &&
-                this.Column[i] === this.Column[i + 3]
-            ) { return this.Column[i] }
+        for (let i = 0; i <= 2; i++) {
+            const token1 = this.Column.getTokenAt(i);
+            const token2 = this.Column.getTokenAt(i + 1);
+            const token3 = this.Column.getTokenAt(i + 2);
+            const token4 = this.Column.getTokenAt(i + 3);
+
+            if (token1 === token2 &&
+                token2 === token3 &&
+                token3 === token4 &&
+                token1 !== null) {
+                return token1;
+                }
         }
+        return 0;
     }
 }
